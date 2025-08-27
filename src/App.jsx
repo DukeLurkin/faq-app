@@ -1,21 +1,30 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from "react";
 import FAQList from "./components/FAQList";
 
 const App = () => {
+  const [darkMode, setDarkMode] = useState(() =>
+  {
+    const savedTheme = localStorage.getItem
+    ('darkMode')
+    return savedTheme ? JSON.parse(savedTheme) : 
+    false
+  }
+  );
 
-  const [darkMode, setDarkMode] = useState(false)
-
-  useEffect (() => {
+  useEffect(() => {
     if (darkMode) {
-      document.documentElement.classList.add('dark')
+      document.documentElement.classList.add
+      ("dark");
     } else {
-      document.documentElement.classList.remove('dark')
+      document.documentElement.classList.remove
+      ("dark");
     }
-  },[darkMode])
+    localStorage.setItem('darkMode', JSON.stringify(darkMode) )
+  }, [darkMode]);
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode)
-  }
+    setDarkMode(!darkMode);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 transition-colors duration-300">
@@ -25,11 +34,12 @@ const App = () => {
             FAQ Center
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto dark:text-gray-300">
-            Find answers to the most common questions about Tailwind CSS and Web Development
+            Find answers to the most common questions about Tailwind CSS and Web
+            Development
           </p>
         </header>
       </div>
-      <FAQList toggleDarkMode={toggleDarkMode} darkMode={darkMode}/>
+      <FAQList toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
     </div>
   );
 };
